@@ -63,6 +63,15 @@ class ShibbolethUserToken extends AbstractToken
         return $this->providerKey;
     }
 
+    public function serialize() {
+        return serialize(array($this->providerKey, parent::serialize()));
+    }
+
+    public function unserialize($serialized) {
+        list($this->providerKey, $parentStr) = unserialize($serialized);
+        parent::unserialize($parentStr);
+    }
+
     /**
      * Returns name for display. Default is the 'cn' attribute or principal name if not available.
      */
