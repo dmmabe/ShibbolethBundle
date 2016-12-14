@@ -118,6 +118,8 @@ class ShibbolethListener implements ListenerInterface
                 $event->setResponse($token);
             }
         } catch (AuthenticationException $e) {
+            $this->securityContext->setToken(null);
+
             if (null !== $this->logger) {
                 $this->logger->info(sprintf('Shibboleth authentication request failed for user "%s": %s', $username, $e->getMessage()));
             }
